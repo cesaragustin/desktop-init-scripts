@@ -1,0 +1,129 @@
+set nocompatible
+filetype off
+
+" Plugins
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'leafgarland/typescript-vim'
+
+call vundle#end()
+filetype plugin indent on
+
+" ctrlp
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" NERDTree Toggle with Ctrl+A
+map <C-a> :NERDTreeToggle<CR>
+
+" Setting vim-airline all the time
+set laststatus=2
+"let g:airline_powerline_fonts = 1
+let g:airline_theme='laederon'
+
+
+" COLORS
+
+" Awesome colorscheme
+"colorscheme monokai
+
+" Enable syntax processing
+syntax enable
+
+" Make backspace work like most other apps
+set backspace=2
+
+" TABS
+
+" Tabs are spaces
+set expandtab
+
+" Number of visual spaces per tab
+set tabstop=4
+
+" Number of spaces in tab when editing
+set softtabstop=4
+
+" Number of spaces in tab when indenting
+set shiftwidth=4
+
+
+" UI CONFIG
+
+" Show line number
+set number
+
+" Show relative line number
+set relativenumber
+
+" Change color of line numbers
+"hi linenr ctermfg=grey
+
+" Line number toggle with Ctrl+N
+function! ToggleNumber()
+    if !&number && !&relativenumber
+        set number
+        "set relativenumber
+    elseif !&relativenumber
+        set relativenumber
+    else
+        set nonumber
+        set norelativenumber
+    endif
+endfunc
+nnoremap <C-n> :call ToggleNumber()<CR>
+
+" Show command in bottom bar
+set showcmd
+
+" Clear cursorline options
+hi clear cursorline
+
+" Highlight current line
+hi cursorline term=bold cterm=bold guibg=white
+set cursorline
+
+" Highlight current column
+hi cursorcolumn term=bold cterm=bold guibg=white
+set cursorcolumn
+
+" load filetype-specific indent files
+filetype indent on
+
+" Visual autocomplete for command menu
+set wildmenu
+
+" Redraw only when needed to
+set lazyredraw
+
+" Highlight matching [{()}]
+set showmatch
+
+" Incremental searches
+set incsearch
+
+" Hightlight matches
+set hlsearch
+
+" Disable hightlight search with \ + space
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Move visually by visual line
+"nnoremap j gj
+"nnoremap k gk
+
+" Highlight last inserted text with gV
+nnoremap gV `[v`]
+
+" Highlight in red unwanted extra spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
